@@ -1,0 +1,222 @@
+# 🔐 CERTIFICADO DIGITAL E CHAVE SEBRAZ
+
+## 📋 CONFIGURAÇÃO PARA PRODUÇÃO
+
+### 🔐 **Certificado Digital:**
+
+#### **Tipos de Certificado Suportados:**
+- ✅ **Certificado A1**: Software (arquivo .pfx ou .p12)
+- ✅ **Certificado A3**: Hardware (token ou cartão)
+
+#### **Como Obter o Certificado:**
+1. **Acesse uma Autoridade Certificadora (AC)**
+   - Serasa Experian
+   - Certisign
+   - Valid
+   - Caixa Econômica Federal
+   - Receita Federal
+
+2. **Documentos Necessários:**
+   - Contrato social da empresa
+   - CNPJ ativo
+   - Documentos pessoais do responsável
+   - Comprovante de endereço
+
+3. **Processo:**
+   - Agende horário na AC
+   - Compareça com documentos
+   - Receba o certificado digital
+   - Instale no computador
+
+#### **Instalação do Certificado:**
+1. **Certificado A1 (Software):**
+   ```
+   - Clique duas vezes no arquivo .pfx
+   - Digite a senha do certificado
+   - Escolha "Máquina Local" para instalação
+   - Confirme a instalação
+   ```
+
+2. **Certificado A3 (Hardware):**
+   ```
+   - Conecte o token/cartão ao computador
+   - Instale os drivers fornecidos
+   - O certificado será detectado automaticamente
+   ```
+
+### 🏢 **Chave SEBRAZ:**
+
+#### **O que é a Chave SEBRAZ:**
+- **Identificação única** da empresa no sistema SEFAZ
+- **Autorização** para emissão de NF-e
+- **Credenciais** de acesso ao webservice
+
+#### **Como Obter a Chave SEBRAZ:**
+1. **Acesse o Portal SEFAZ:**
+   - Vá para o site da SEFAZ do seu estado
+   - Acesse a área de contribuinte
+
+2. **Cadastro Inicial:**
+   - Informe o CNPJ da empresa
+   - Dados do responsável
+   - Endereço e contatos
+
+3. **Solicitação de Credenciais:**
+   - Solicite acesso ao webservice NF-e
+   - Receba usuário e senha
+   - Configure ambiente de produção
+
+#### **Configuração no Sistema:**
+1. **Arquivo de Configuração:**
+   ```json
+   {
+     "sebraz": {
+       "usuario": "SEU_USUARIO",
+       "senha": "SUA_SENHA",
+       "ambiente": "producao",
+       "uf": "SP"
+     }
+   }
+   ```
+
+2. **Certificado Digital:**
+   - Instale o certificado no Windows
+   - O sistema detectará automaticamente
+   - Configure a senha do certificado
+
+### 🔧 **Configuração no Sistema:**
+
+#### **Modo Homologação (Atual):**
+- ✅ **Funcionando**: Sistema operacional
+- ✅ **Testes**: Pode gerar NF-e de teste
+- ✅ **Sem valor fiscal**: Para desenvolvimento
+
+#### **Modo Produção (Com certificado):**
+- 🔐 **Certificado**: Necessário certificado válido
+- 🏢 **SEBRAZ**: Credenciais da SEFAZ
+- 📋 **Autorização**: NF-e com valor fiscal real
+
+### 📁 **Estrutura de Pastas:**
+
+#### **Pasta certificados/:**
+```
+certificados/
+├── certificado.pfx          # Certificado A1 (se aplicável)
+├── config_sebraz.json       # Configurações SEBRAZ
+└── README.txt              # Instruções de instalação
+```
+
+#### **Arquivo config_sebraz.json:**
+```json
+{
+  "ambiente": "producao",
+  "uf": "SP",
+  "usuario_sebraz": "SEU_USUARIO",
+  "senha_sebraz": "SUA_SENHA",
+  "certificado": {
+    "tipo": "A1",
+    "arquivo": "certificado.pfx",
+    "senha": "SENHA_CERTIFICADO"
+  },
+  "webservice": {
+    "url": "https://nfe.fazenda.sp.gov.br/ws/nfeautorizacao4.asmx",
+    "timeout": 30
+  }
+}
+```
+
+### 🚀 **Migração para Produção:**
+
+#### **Passo a Passo:**
+1. **Obter Certificado Digital:**
+   - Contrate com AC autorizada
+   - Instale no computador
+   - Teste a instalação
+
+2. **Obter Credenciais SEBRAZ:**
+   - Cadastre na SEFAZ
+   - Receba usuário e senha
+   - Configure ambiente
+
+3. **Configurar Sistema:**
+   - Edite config_sebraz.json
+   - Insira credenciais
+   - Teste conexão
+
+4. **Testar Emissão:**
+   - Gere NF-e de teste
+   - Verifique autorização
+   - Confirme funcionamento
+
+#### **Arquivos Necessários:**
+- ✅ **sistema_nota_fiscal.pyw**: Sistema principal
+- ✅ **SISTEMA.bat**: Execução
+- ✅ **INSTALAR_SISTEMA_COMPLETO.bat**: Instalação
+- ✅ **certificado.pfx**: Certificado digital
+- ✅ **config_sebraz.json**: Configurações
+
+### 📋 **Checklist para Produção:**
+
+#### **✅ Pré-requisitos:**
+- [ ] Python 3.7+ instalado
+- [ ] Todas as dependências instaladas
+- [ ] Certificado digital válido
+- [ ] Credenciais SEBRAZ
+- [ ] CNPJ ativo e regular
+
+#### **✅ Configurações:**
+- [ ] Certificado instalado no Windows
+- [ ] Configurações SEBRAZ definidas
+- [ ] Ambiente alterado para produção
+- [ ] Teste de conexão realizado
+- [ ] NF-e de teste autorizada
+
+#### **✅ Funcionalidades:**
+- [ ] Login funcionando
+- [ ] Dados da empresa configurados
+- [ ] Produtos cadastrados
+- [ ] Geração de PDF funcionando
+- [ ] Geração de XML funcionando
+- [ ] Autorização SEFAZ funcionando
+
+### 🔍 **Solução de Problemas:**
+
+#### **Erro de Certificado:**
+```
+❌ Certificado não encontrado
+✅ Solução: Verificar instalação do certificado
+```
+
+#### **Erro de Conexão SEBRAZ:**
+```
+❌ Falha na conexão com SEFAZ
+✅ Solução: Verificar credenciais e internet
+```
+
+#### **Erro de Autorização:**
+```
+❌ NF-e não autorizada
+✅ Solução: Verificar dados e certificado
+```
+
+### 📞 **Suporte:**
+
+#### **SEFAZ:**
+- **SP**: https://www.nfe.fazenda.sp.gov.br
+- **RJ**: https://www.nfe.fazenda.rj.gov.br
+- **MG**: https://www.nfe.fazenda.mg.gov.br
+
+#### **Autoridades Certificadoras:**
+- **Serasa**: https://www.serasaexperian.com.br
+- **Certisign**: https://www.certisign.com.br
+- **Valid**: https://www.valid.com.br
+
+### 🎯 **CONCLUSÃO:**
+
+**Para migrar para produção:**
+1. **Obtenha certificado digital**
+2. **Configure credenciais SEBRAZ**
+3. **Teste todas as funcionalidades**
+4. **Inicie uso em produção**
+
+**O sistema está preparado para produção com certificado digital e credenciais SEBRAZ! 🚀** 

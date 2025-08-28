@@ -1,0 +1,76 @@
+========================================
+    SISTEMA DE NOTA FISCAL
+    Instruções para Instalação em Outro Computador
+========================================
+
+COMO COPIAR E USAR EM OUTRO COMPUTADOR:
+
+1. COPIE TODA A PASTA
+   - Copie toda a pasta "Sistema de nota fiscal" para o outro computador
+   - Você pode usar pendrive, email, Google Drive, etc.
+
+2. REQUISITOS NO COMPUTADOR DESTINO:
+   - Windows 10 ou superior
+   - Python 3.7 ou superior (obrigatório)
+
+3. INSTALAÇÃO NO COMPUTADOR DESTINO:
+
+   OPÇÃO A - Instalação Automática (Recomendado):
+   - Clique duas vezes em "instalar_universal.bat"
+   - Siga as instruções na tela
+
+   OPÇÃO B - Instalação Manual:
+   - Abra o CMD como administrador
+   - Navegue até a pasta do sistema
+   - Execute: pip install -r requirements.txt
+
+4. EXECUÇÃO:
+   - Clique duas vezes em "executar.bat"
+   - Ou execute: python sistema_nota_fiscal.py
+
+5. CONFIGURAÇÃO:
+   - Configure os dados da sua empresa
+   - Cadastre seus produtos
+   - Configure a impressora
+
+========================================
+ARQUIVOS IMPORTANTES:
+
+- sistema_nota_fiscal.py (sistema principal)
+- instalar_universal.bat (instalação automática)
+- executar.bat (execução fácil)
+- requirements.txt (dependências)
+- dados_sistema.json (seus dados - criado automaticamente)
+
+========================================
+DICAS IMPORTANTES:
+
+1. SEMPRE FAÇA BACKUP:
+   - O arquivo "dados_sistema.json" contém todos os seus dados
+   - Copie este arquivo regularmente para backup
+
+2. IMPRESSORA:
+   - Configure a impressora padrão no Windows
+   - O sistema usa a impressora padrão automaticamente
+
+3. PROBLEMAS COMUNS:
+   - Se der erro de "Python não encontrado": instale o Python
+   - Se der erro de módulos: execute instalar_universal.bat
+   - Se não imprimir: verifique se a impressora está configurada
+
+4. ATALHO NA ÁREA DE TRABALHO:
+   - Clique com botão direito na área de trabalho
+   - Novo > Atalho
+   - Digite: python "CAMINHO\sistema_nota_fiscal.py"
+   - Dê um nome como "Sistema Nota Fiscal"
+
+========================================
+SUPORTE:
+
+Se tiver problemas:
+1. Verifique se o Python está instalado
+2. Execute instalar_universal.bat
+3. Verifique se a impressora está configurada
+4. Leia o arquivo README.md para mais detalhes
+
+======================================== 

@@ -1,0 +1,59 @@
+===========================================
+    COMO EXECUTAR O SISTEMA SEM CMD
+===========================================
+
+Existem várias maneiras de executar o sistema sem mostrar a janela do CMD:
+
+1. USANDO O ARQUIVO .PYW (RECOMENDADO)
+   - Clique duas vezes no arquivo: sistema_nota_fiscal.pyw
+   - Ou execute: pythonw sistema_nota_fiscal.pyw
+   - Este é o método mais simples e eficaz
+
+2. USANDO O ARQUIVO .BAT ATUALIZADO
+   - Clique duas vezes no arquivo: executar.bat
+   - Este arquivo foi atualizado para usar pythonw
+
+3. USANDO O ARQUIVO .BAT SEM CMD
+   - Clique duas vezes no arquivo: executar_sem_cmd.bat
+   - Este arquivo executa o sistema minimizado
+
+4. USANDO O PYTHONW DIRETAMENTE
+   - Abra o CMD (ou PowerShell)
+   - Navegue até a pasta do sistema
+   - Execute: pythonw sistema_nota_fiscal.pyw
+
+===========================================
+    DIFERENÇAS ENTRE OS ARQUIVOS
+===========================================
+
+- sistema_nota_fiscal.py  : Versão original (mostra CMD)
+- sistema_nota_fiscal.pyw : Versão sem CMD (recomendada)
+- executar.bat           : Script atualizado para usar .pyw
+- executar_sem_cmd.bat   : Script que executa minimizado
+
+===========================================
+    SOLUÇÃO DE PROBLEMAS
+===========================================
+
+Se o sistema não abrir com o arquivo .pyw:
+
+1. Verifique se o Python está instalado
+2. Execute: python --version
+3. Se necessário, reinstale o Python
+4. Execute: pip install -r requirements.txt
+
+Se ainda houver problemas:
+- Use o arquivo .py original: python sistema_nota_fiscal.py
+- O CMD será mostrado, mas o sistema funcionará normalmente
+
+===========================================
+    NOTAS IMPORTANTES
+===========================================
+
+- O arquivo .pyw é idêntico ao .py, apenas com extensão diferente
+- O pythonw é o interpretador Python sem console
+- Todos os dados são salvos normalmente
+- Todas as funcionalidades permanecem iguais
+- Apenas a janela do CMD não é mostrada
+
+=========================================== 

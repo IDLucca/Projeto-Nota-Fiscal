@@ -1,0 +1,139 @@
+<?xml version="1.0" ?>
+<nfeProc xmlns="http://www.portalfiscal.inf.br/nfe" versao="4.00">
+  <NFe xmlns="http://www.portalfiscal.inf.br/nfe">
+    <infNFe Id="NFe35250800000000000000550010000000010000000111" versao="4.00">
+      <ide>
+        <cUF>35</cUF>
+        <cNF>00000001</cNF>
+        <natOp>Venda de Mercadoria</natOp>
+        <mod>55</mod>
+        <serie>001</serie>
+        <nNF>1</nNF>
+        <dhEmi>2025-08-06T22:21:49-03:00</dhEmi>
+        <tpNF>1</tpNF>
+        <idDest>1</idDest>
+        <cMunFG>3550308</cMunFG>
+        <tpImp>1</tpImp>
+        <tpEmis>1</tpEmis>
+        <cDV>1</cDV>
+        <tpAmb>2</tpAmb>
+        <finNFe>1</finNFe>
+        <indFinal>1</indFinal>
+        <indPres>1</indPres>
+        <procEmi>0</procEmi>
+        <verProc>1.0</verProc>
+      </ide>
+      <emit>
+        <CNPJ/>
+        <xNome/>
+        <xFant/>
+        <enderEmit>
+          <xLgr/>
+          <nro>S/N</nro>
+          <xBairro>Centro</xBairro>
+          <cMun>3550308</cMun>
+          <xMun>São Paulo</xMun>
+          <UF>SP</UF>
+          <CEP/>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderEmit>
+      </emit>
+      <dest>
+        <CPF>18775554798</CPF>
+        <xNome>Luccas Marsal Dos Santos</xNome>
+        <enderDest>
+          <xLgr>Rua itabapoana 328</xLgr>
+          <nro>S/N</nro>
+          <xBairro>Centro</xBairro>
+          <cMun>3550308</cMun>
+          <xMun>São Paulo</xMun>
+          <UF>SP</UF>
+          <CEP>00000000</CEP>
+          <cPais>1058</cPais>
+          <xPais>BRASIL</xPais>
+        </enderDest>
+      </dest>
+      <det>
+        <det nItem="1">
+          <prod>
+            <cProd>6257</cProd>
+            <xProd>Pão de sal</xProd>
+            <NCM>21069090</NCM>
+            <CFOP>5102</CFOP>
+            <uCom>UN</uCom>
+            <qCom>480.00</qCom>
+            <vUnCom>0.85</vUnCom>
+            <vProd>408.00</vProd>
+            <uTrib>UN</uTrib>
+            <qTrib>480.00</qTrib>
+            <vUnTrib>0.85</vUnTrib>
+            <indTot>1</indTot>
+          </prod>
+          <imposto>
+            <ICMS>
+              <ICMS00>
+                <orig>0</orig>
+                <CST>00</CST>
+                <modBC>0</modBC>
+                <vBC>408.00</vBC>
+                <pICMS>18.00</pICMS>
+                <vICMS>73.44</vICMS>
+              </ICMS00>
+            </ICMS>
+            <PIS>
+              <PISAliq>
+                <CST>01</CST>
+                <vBC>408.00</vBC>
+                <pPIS>1.65</pPIS>
+                <vPIS>6.73</vPIS>
+              </PISAliq>
+            </PIS>
+            <COFINS>
+              <COFINSAliq>
+                <CST>01</CST>
+                <vBC>408.00</vBC>
+                <pCOFINS>7.6</pCOFINS>
+                <vCOFINS>31.01</vCOFINS>
+              </COFINSAliq>
+            </COFINS>
+          </imposto>
+        </det>
+      </det>
+      <total>
+        <ICMSTot>
+          <vBC>408.00</vBC>
+          <vICMS>73.44</vICMS>
+          <vProd>408.00</vProd>
+          <vNF>481.44</vNF>
+        </ICMSTot>
+      </total>
+      <transp>
+        <modFrete>9</modFrete>
+      </transp>
+      <pag>
+        <detPag>
+          <indPag>0</indPag>
+          <tPag>01</tPag>
+          <vPag>481.44</vPag>
+        </detPag>
+      </pag>
+      <infAdic>
+        <infAdFisco>NF-e gerada pelo sistema Padaria Quero Mais</infAdFisco>
+        <infCpl>Documento válido para fins fiscais</infCpl>
+      </infAdic>
+    </infNFe>
+  </NFe>
+  <protNFe versao="4.00">
+    <infProt>
+      <tpAmb>2</tpAmb>
+      <verAplic>1.0</verAplic>
+      <chNFe>35250800000000000000550010000000010000000111</chNFe>
+      <dhRecbto>2025-08-06T22:21:49-03:00</dhRecbto>
+      <nProt>135210000025991</nProt>
+      <digVal>0000000000000000000000000000000000000000000</digVal>
+      <cStat>100</cStat>
+      <xMotivo>Autorizacao de uso da NF-e</xMotivo>
+    </infProt>
+  </protNFe>
+</nfeProc>

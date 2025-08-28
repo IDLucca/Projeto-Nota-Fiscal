@@ -1,0 +1,19 @@
+{
+  "dados_empresa": {
+    "nome": "",
+    "cnpj": "",
+    "endereco": "",
+    "cidade": "",
+    "cep": "",
+    "telefone": ""
+  },
+  "produtos": [
+    {
+      "codigo": "6257",
+      "descricao": "Pão de sal",
+      "preco": 0.85,
+      "unidade": "1"
+    }
+  ],
+  "notas_fiscais": []
+}

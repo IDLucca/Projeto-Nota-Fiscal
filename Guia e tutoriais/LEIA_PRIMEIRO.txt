@@ -1,0 +1,54 @@
+========================================
+    SISTEMA DE NOTA FISCAL
+    LEIA PRIMEIRO - INSTRUÇÕES PRINCIPAIS
+========================================
+
+🎯 O QUE VOCÊ TEM AQUI:
+- Sistema completo de nota fiscal para sua empresa
+- Funciona em qualquer computador Windows
+- Interface simples e fácil de usar
+- Impressão direta na impressora
+
+📁 ARQUIVOS PRINCIPAIS:
+
+1. sistema_nota_fiscal.py - O sistema principal
+2. executar.bat - Para executar o sistema (clique duas vezes)
+3. instalar_universal.bat - Para instalar em outro computador
+4. fazer_backup.bat - Para fazer backup dos seus dados
+5. dados_sistema.json - Seus dados (criado automaticamente)
+
+🚀 COMO USAR AGORA:
+1. Clique duas vezes em "executar.bat"
+2. Configure os dados da sua empresa
+3. Cadastre seus produtos
+4. Gere notas fiscais!
+
+💾 COMO COPIAR PARA OUTRO COMPUTADOR:
+1. Copie TODA esta pasta para o outro computador
+2. No outro computador, clique em "instalar_universal.bat"
+3. Depois clique em "executar.bat"
+
+🔒 BACKUP DOS DADOS:
+- Clique em "fazer_backup.bat" para salvar seus dados
+- Os backups ficam na pasta "backup"
+- Sempre faça backup antes de copiar para outro computador
+
+📋 FUNCIONALIDADES:
+✅ Cadastro de dados da empresa
+✅ Gestão de produtos
+✅ Geração de notas fiscais
+✅ Impressão automática
+✅ Histórico completo
+✅ Reimpressão de notas
+
+⚠️ IMPORTANTE:
+- Este sistema salva automaticamente todos os dados
+- Sempre faça backup regular dos dados
+- Configure a impressora padrão no Windows
+- O sistema funciona offline (sem internet)
+
+📞 PRECISA DE AJUDA?
+- Leia o arquivo README.md para instruções detalhadas
+- Leia COMO_INSTALAR_EM_OUTRO_COMPUTADOR.txt para usar em outros PCs
+
+======================================== 

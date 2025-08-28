@@ -1,0 +1,81 @@
+========================================
+    SOLUÇÕES PARA PROBLEMAS DE PDF
+========================================
+
+PROBLEMA: "Erro 2 - Windows não pode encontrar o arquivo especificado"
+
+SOLUÇÕES:
+
+1. VERIFICAR SE O PYTHON ESTÁ INSTALADO CORRETAMENTE:
+   - Abra o CMD
+   - Digite: python --version
+   - Se não funcionar, reinstale o Python
+
+2. VERIFICAR SE AS DEPENDÊNCIAS ESTÃO INSTALADAS:
+   - Execute: instalar_universal.bat
+   - Ou no CMD: pip install -r requirements.txt
+
+3. VERIFICAR PERMISSÕES DE PASTA:
+   - Clique com botão direito na pasta "Sistema de nota fiscal"
+   - Propriedades > Segurança
+   - Verifique se você tem permissão de escrita
+
+4. VERIFICAR ESPAÇO EM DISCO:
+   - Certifique-se de que há espaço livre no disco
+   - Pelo menos 100MB livres
+
+5. VERIFICAR ANTIVÍRUS:
+   - Temporariamente desative o antivírus
+   - Teste se o PDF é gerado
+   - Se funcionar, adicione a pasta ao antivírus
+
+6. VERIFICAR LEITOR DE PDF:
+   - Certifique-se de que há um leitor de PDF instalado
+   - Windows 10/11 já vem com leitor integrado
+   - Ou instale Adobe Reader, Sumatra PDF, etc.
+
+7. VERIFICAR CAMINHO DO ARQUIVO:
+   - Os PDFs são salvos na pasta "pdfs"
+   - Verifique se a pasta foi criada
+   - Verifique se os arquivos estão lá
+
+8. SOLUÇÃO ALTERNATIVA - USAR CAMINHO ABSOLUTO:
+   - Se continuar com erro, o sistema agora usa caminhos relativos
+   - Isso deve resolver o problema
+
+9. VERIFICAR LOGS:
+   - Abra o CMD na pasta do sistema
+   - Execute: python sistema_nota_fiscal.py
+   - Veja se aparecem mensagens de erro
+
+10. REINSTALAR DEPENDÊNCIAS:
+    - Delete a pasta .venv (se existir)
+    - Execute: instalar_universal.bat novamente
+
+========================================
+COMO TESTAR SE ESTÁ FUNCIONANDO:
+
+1. Abra o sistema
+2. Configure os dados da empresa
+3. Cadastre um produto
+4. Crie uma nota fiscal simples
+5. Clique em "Visualizar PDF"
+6. O PDF deve abrir automaticamente
+
+========================================
+SE AINDA NÃO FUNCIONAR:
+
+1. Verifique se a pasta "pdfs" foi criada
+2. Verifique se há arquivos .pdf dentro dela
+3. Tente abrir um PDF manualmente
+4. Se não abrir, instale um leitor de PDF
+
+========================================
+CONTATO PARA SUPORTE:
+
+Se nenhuma solução funcionar:
+1. Anote a mensagem de erro exata
+2. Verifique se o Python está na versão 3.7+
+3. Teste em outro computador se possível
+
+======================================== 
