@@ -1975,6 +1975,7 @@ class SistemaNotaFiscal:
                         self.dados_empresa.update(dados_empresa)
                     
                     self.produtos = dados.get("produtos", [])
+                    
                     self.notas_fiscais = dados.get("notas_fiscais", [])
         except Exception as e:
             print(f"Erro ao carregar dados: {e}")

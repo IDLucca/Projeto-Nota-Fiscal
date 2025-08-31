@@ -13,6 +13,12 @@
       "descricao": "Pão de sal",
       "preco": 0.85,
       "unidade": "1"
+    },
+    {
+      "codigo": "5454",
+      "descricao": "Pão De Queijo",
+      "preco": 2.0,
+      "unidade": "1"
     }
   ],
   "notas_fiscais": []
