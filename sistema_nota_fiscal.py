@@ -536,10 +536,10 @@ class SistemaNotaFiscal:
     
     def criar_aba_nota_fiscal(self, notebook):
         frame_nf = ttk.Frame(notebook)
-        notebook.add(frame_nf, text="Nova Nota Fiscal")
+        notebook.add(frame_nf, text="Nova NFC-e")
         
         # Título
-        ttk.Label(frame_nf, text="Nova Nota Fiscal", font=("Arial", 16, "bold")).pack(pady=10)
+        ttk.Label(frame_nf, text="Nova NFC-e", font=("Arial", 16, "bold")).pack(pady=10)
         
         # Frame para dados do cliente
         frame_cliente = ttk.LabelFrame(frame_nf, text="Dados do Cliente")
@@ -564,7 +564,7 @@ class SistemaNotaFiscal:
         self.entry_cliente_endereco.bind('<FocusOut>', lambda e: self.entry_cliente_endereco.insert(0, "Rua, Número, Bairro") if not self.entry_cliente_endereco.get() else None)
         
         # Frame para itens
-        frame_itens = ttk.LabelFrame(frame_nf, text="Itens da Nota Fiscal")
+        frame_itens = ttk.LabelFrame(frame_nf, text="Itens da NFC-e")
         frame_itens.pack(fill='both', expand=True, padx=20, pady=10)
         
         # Frame para adicionar itens
@@ -611,10 +611,10 @@ class SistemaNotaFiscal:
         frame_botoes_nf = ttk.Frame(frame_nf)
         frame_botoes_nf.pack(pady=20)
         
-        ttk.Button(frame_botoes_nf, text="Limpar Nota", command=self.limpar_nota_fiscal).pack(side='left', padx=5)
-        ttk.Button(frame_botoes_nf, text="Salvar Nota", command=self.salvar_nota_fiscal).pack(side='left', padx=5)
-        ttk.Button(frame_botoes_nf, text="Visualizar PDF", command=self.visualizar_pdf_antes_imprimir).pack(side='left', padx=5)
-        ttk.Button(frame_botoes_nf, text="Gerar e Imprimir NF", command=self.gerar_imprimir_nf).pack(side='left', padx=5)
+        ttk.Button(frame_botoes_nf, text="Limpar NFC-e", command=self.limpar_nota_fiscal).pack(side='left', padx=5)
+        ttk.Button(frame_botoes_nf, text="Salvar NFC-e", command=self.salvar_nota_fiscal).pack(side='left', padx=5)
+        ttk.Button(frame_botoes_nf, text="Visualizar DANFE", command=self.visualizar_pdf_antes_imprimir).pack(side='left', padx=5)
+        ttk.Button(frame_botoes_nf, text="Gerar e Imprimir NFC-e", command=self.gerar_imprimir_nf).pack(side='left', padx=5)
         ttk.Button(frame_botoes_nf, text="Abrir Pasta PDFs", command=self.abrir_pasta_pdfs).pack(side='left', padx=5)
         
         # Lista de itens da nota atual
@@ -628,7 +628,7 @@ class SistemaNotaFiscal:
         notebook.add(frame_historico, text="Histórico")
         
         # Título
-        ttk.Label(frame_historico, text="Histórico de Notas Fiscais", font=("Arial", 16, "bold")).pack(pady=10)
+        ttk.Label(frame_historico, text="Histórico de NFC-e", font=("Arial", 16, "bold")).pack(pady=10)
         
         # Frame para filtros
         frame_filtros = ttk.Frame(frame_historico)
@@ -688,7 +688,7 @@ class SistemaNotaFiscal:
         btn_pendente_frame.pack(side='left', padx=5)
         
         # Botão Reimprimir
-        ttk.Button(frame_botoes_acao, text="Reimprimir NF", command=self.reimprimir_nf).pack(side='left', padx=5)
+        ttk.Button(frame_botoes_acao, text="Reimprimir NFC-e", command=self.reimprimir_nf).pack(side='left', padx=5)
         
         # Frame para botões de pasta
         frame_botoes_pasta = ttk.Frame(frame_historico)
@@ -696,7 +696,7 @@ class SistemaNotaFiscal:
         
         # Botões para abrir pastas
         ttk.Button(frame_botoes_pasta, text="📁 Abrir Pasta PDFs", command=self.abrir_pasta_pdfs).pack(side='left', padx=5)
-        ttk.Button(frame_botoes_pasta, text="📄 Abrir Pasta XMLs NF-e", command=self.abrir_pasta_xmls).pack(side='left', padx=5)
+        ttk.Button(frame_botoes_pasta, text="📄 Abrir Pasta XMLs NFC-e", command=self.abrir_pasta_xmls).pack(side='left', padx=5)
         
         # Atualizar histórico
         self.atualizar_historico()
@@ -1005,7 +1005,7 @@ class SistemaNotaFiscal:
             
             # Abrir pasta no explorador
             os.startfile(pasta_xmls)
-            messagebox.showinfo("Sucesso", f"Pasta de XMLs NF-e aberta: {pasta_xmls}")
+            messagebox.showinfo("Sucesso", f"Pasta de XMLs NFC-e aberta: {pasta_xmls}")
             
         except Exception as e:
             messagebox.showerror("Erro", f"Erro ao abrir pasta de XMLs: {e}")
@@ -1306,8 +1306,33 @@ class SistemaNotaFiscal:
             print(f"Erro ao gerar QR Code: {e}")
             return None
     
+    def gerar_qr_code_nfc_e(self, dados_qr, chave_acesso):
+        """Gera QR Code para NFC-e conforme Nota Técnica 2020.004"""
+        try:
+            # Criar QR Code com configurações específicas para NFC-e
+            qr = qrcode.QRCode(
+                version=1,
+                error_correction=qrcode.constants.ERROR_CORRECT_M,  # Correção média para NFC-e
+                box_size=8,  # Tamanho menor para NFC-e
+                border=2,    # Borda menor
+            )
+            qr.add_data(dados_qr)
+            qr.make(fit=True)
+            
+            # Criar imagem com fundo branco
+            qr_image = qr.make_image(fill_color="black", back_color="white")
+            
+            # Salvar temporariamente
+            temp_path = os.path.join(tempfile.gettempdir(), f"qr_nfce_{chave_acesso}.png")
+            qr_image.save(temp_path)
+            
+            return temp_path
+        except Exception as e:
+            print(f"Erro ao gerar QR Code NFC-e: {e}")
+            return None
+    
     def gerar_xml_nfe(self, nota_fiscal):
-        """Gera XML da NF-e conforme padrão SEFAZ"""
+        """Gera XML da NFC-e conforme padrão SEFAZ (modelo 65)"""
         try:
             # Obter caminho absoluto da pasta atual
             pasta_atual = os.path.abspath(os.getcwd())
@@ -1326,33 +1351,33 @@ class SistemaNotaFiscal:
             data_emissao = data_hora.strftime("%Y-%m-%d")
             hora_emissao = data_hora.strftime("%H:%M:%S")
             
-            # Gerar chave de acesso
+            # Gerar chave de acesso para NFC-e (modelo 65)
             aamm = data_hora.strftime("%y%m")
             serie = "001"
             codigo_numerico = "00000001"
             tipo_emissao = "1"  # Normal
-            modelo = "55"  # NF-e
+            modelo = "65"  # NFC-e
             
             chave_acesso = self.gerar_chave_acesso(
                 uf_empresa, aamm, cnpj_empresa, modelo, 
                 serie, nota_fiscal['numero'], codigo_numerico, tipo_emissao
             )
             
-            # Criar elemento raiz
+            # Criar elemento raiz para NFC-e
             root = ET.Element("nfeProc", xmlns="http://www.portalfiscal.inf.br/nfe", versao="4.00")
             
             # Elemento NFe
             nfe = ET.SubElement(root, "NFe", xmlns="http://www.portalfiscal.inf.br/nfe")
             
-            # Informações da NF-e
+            # Informações da NFC-e
             inf_nfe = ET.SubElement(nfe, "infNFe", Id=self.gerar_id_nfe(chave_acesso), versao="4.00")
             
-            # Identificação da NF-e
+            # Identificação da NFC-e
             ide = ET.SubElement(inf_nfe, "ide")
             ET.SubElement(ide, "cUF").text = uf_empresa
             ET.SubElement(ide, "cNF").text = codigo_numerico
             ET.SubElement(ide, "natOp").text = "Venda de Mercadoria"
-            ET.SubElement(ide, "mod").text = modelo
+            ET.SubElement(ide, "mod").text = modelo  # 65 para NFC-e
             ET.SubElement(ide, "serie").text = serie
             ET.SubElement(ide, "nNF").text = str(nota_fiscal['numero'])
             ET.SubElement(ide, "dhEmi").text = f"{data_emissao}T{hora_emissao}-03:00"
@@ -1363,7 +1388,7 @@ class SistemaNotaFiscal:
             ET.SubElement(ide, "tpEmis").text = "1"  # Normal
             ET.SubElement(ide, "cDV").text = chave_acesso[-1]
             ET.SubElement(ide, "tpAmb").text = "2"  # Homologação
-            ET.SubElement(ide, "finNFe").text = "1"  # Normal
+            ET.SubElement(ide, "finNFe").text = "4"  # NFC-e
             ET.SubElement(ide, "indFinal").text = "1"  # Consumidor Final
             ET.SubElement(ide, "indPres").text = "1"  # Operação Presencial
             ET.SubElement(ide, "procEmi").text = "0"  # Aplicativo do Contribuinte
@@ -1528,17 +1553,17 @@ class SistemaNotaFiscal:
             xml_formatado = dom.toprettyxml(indent="  ")
             
             # Salvar arquivo XML
-            nome_arquivo = f"NFe_{chave_acesso}.xml"
+            nome_arquivo = f"NFCe_{chave_acesso}.xml"
             caminho_completo = os.path.join(pasta_xmls, nome_arquivo)
             
             with open(caminho_completo, 'w', encoding='utf-8') as f:
                 f.write(xml_formatado)
             
-            print(f"XML NF-e gerado com sucesso: {caminho_completo}")
+            print(f"XML NFC-e gerado com sucesso: {caminho_completo}")
             return caminho_completo
             
         except Exception as e:
-            print(f"Erro ao gerar XML NF-e: {e}")
+            print(f"Erro ao gerar XML NFC-e: {e}")
             raise e
     
     def gerar_pdf(self, nota_fiscal):
@@ -1552,161 +1577,209 @@ class SistemaNotaFiscal:
                 os.makedirs(pasta_pdfs)
             
             # Criar nome do arquivo com número da nota
-            nome_arquivo = f"NF_{nota_fiscal['numero']:06d}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
+            nome_arquivo = f"NFCe_{nota_fiscal['numero']:06d}_{datetime.now().strftime('%Y%m%d_%H%M%S')}.pdf"
             caminho_completo = os.path.join(pasta_pdfs, nome_arquivo)
             
-            print(f"Gerando PDF em: {caminho_completo}")
+            print(f"Gerando DANFE NFC-e em: {caminho_completo}")
             
-            # Criar arquivo PDF com margens centralizadas
+            # Criar arquivo PDF com margens conforme NT 2020.004 (mínimo 2mm)
+            # Convertendo 2mm para pontos (1mm = 2.83465 pontos)
+            margem_minima = 2 * 2.83465  # 2mm em pontos
             doc = SimpleDocTemplate(caminho_completo, pagesize=A4, 
-                                  leftMargin=1*inch, rightMargin=1*inch,
-                                  topMargin=0.8*inch, bottomMargin=0.8*inch)
+                                  leftMargin=margem_minima, rightMargin=margem_minima,
+                                  topMargin=0.5*inch, bottomMargin=0.5*inch)
             story = []
             
-            # Estilos (preto e negrito como na imagem)
+            # Estilos conforme especificações NFC-e
             styles = getSampleStyleSheet()
             title_style = ParagraphStyle(
-                'CustomTitle',
+                'NFCeTitle',
                 parent=styles['Heading1'],
-                fontSize=18,
-                spaceAfter=20,
+                fontSize=16,
+                spaceAfter=15,
                 alignment=1,  # Centralizado
                 textColor=colors.black,
                 fontName='Helvetica-Bold'
             )
             
             header_style = ParagraphStyle(
-                'Header',
+                'NFCeHeader',
                 parent=styles['Normal'],
-                fontSize=12,
-                spaceAfter=5,
+                fontSize=11,
+                spaceAfter=8,
                 textColor=colors.black,
                 fontName='Helvetica-Bold'
             )
             
             normal_style = ParagraphStyle(
-                'Normal',
+                'NFCeNormal',
                 parent=styles['Normal'],
-                fontSize=10,
+                fontSize=9,
                 textColor=colors.black,
                 fontName='Helvetica'
             )
             
-            # ===== CABEÇALHO PROFISSIONAL =====
-            # Título principal
-            story.append(Paragraph("NOTA FISCAL", title_style))
-            story.append(Spacer(1, 15))
+            small_style = ParagraphStyle(
+                'NFCeSmall',
+                parent=styles['Normal'],
+                fontSize=7,
+                textColor=colors.black,
+                fontName='Helvetica'
+            )
+            
+            # ===== CABEÇALHO NFC-e =====
+            # Título principal conforme NT
+            story.append(Paragraph("DANFE NFC-e", title_style))
+            story.append(Paragraph("NOTA FISCAL DE CONSUMIDOR ELETRÔNICA", header_style))
+            story.append(Spacer(1, 10))
             
             # ===== DADOS DO EMITENTE =====
-            story.append(Paragraph("EMITENTE", header_style))
-            story.append(Paragraph(f"<b>Emitente:</b> {self.dados_empresa['nome']}", normal_style))
+            story.append(Paragraph("DADOS DO EMITENTE", header_style))
+            story.append(Paragraph(f"<b>Razão Social:</b> {self.dados_empresa['nome']}", normal_style))
             story.append(Paragraph(f"<b>CNPJ:</b> {self.dados_empresa['cnpj']}", normal_style))
             story.append(Paragraph(f"<b>Endereço:</b> {self.dados_empresa['endereco']}", normal_style))
+            story.append(Paragraph(f"<b>Município/UF:</b> {self.dados_empresa['cidade']}", normal_style))
+            story.append(Paragraph(f"<b>CEP:</b> {self.dados_empresa['cep']}", normal_style))
             story.append(Paragraph(f"<b>IE:</b> 1234567890", normal_style))
-            story.append(Spacer(1, 15))
+            story.append(Spacer(1, 10))
             
             # ===== DADOS DO DESTINATÁRIO =====
-            story.append(Paragraph("DESTINATÁRIO", header_style))
-            story.append(Paragraph(f"<b>Destinatário:</b> {nota_fiscal['cliente']['nome']}", normal_style))
+            story.append(Paragraph("DADOS DO DESTINATÁRIO", header_style))
+            story.append(Paragraph(f"<b>Nome:</b> {nota_fiscal['cliente']['nome']}", normal_style))
             if nota_fiscal['cliente']['documento']:
                 story.append(Paragraph(f"<b>CPF:</b> {nota_fiscal['cliente']['documento']}", normal_style))
             if nota_fiscal['cliente']['endereco']:
                 story.append(Paragraph(f"<b>Endereço:</b> {nota_fiscal['cliente']['endereco']}", normal_style))
-            story.append(Spacer(1, 15))
+            story.append(Spacer(1, 10))
             
-            # ===== TABELA DE PRODUTOS =====
-            story.append(Paragraph("PRODUTOS/SERVIÇOS", header_style))
+            # ===== IDENTIFICAÇÃO DA NFC-e =====
+            story.append(Paragraph("IDENTIFICAÇÃO DA NFC-e", header_style))
             
-            dados_tabela = [['Código', 'Descrição', 'Quantidade', 'Valor Unitário', 'Valor Total']]
+            # Gerar chave de acesso para NFC-e (modelo 65)
+            chave_acesso = self.gerar_chave_acesso("35", "1508", self.limpar_documento(self.dados_empresa['cnpj']), "65", "001", nota_fiscal['numero'], "00000001", "1")
+            protocolo = "135210000025991"
             
-            for item in nota_fiscal['itens']:
+            story.append(Paragraph(f"<b>Número:</b> {nota_fiscal['numero']:06d}", normal_style))
+            story.append(Paragraph(f"<b>Série:</b> 001", normal_style))
+            story.append(Paragraph(f"<b>Data/Hora Emissão:</b> {nota_fiscal['data']}", normal_style))
+            story.append(Paragraph(f"<b>Chave de Acesso:</b> {chave_acesso}", small_style))
+            story.append(Paragraph(f"<b>Protocolo de Autorização:</b> {protocolo}", normal_style))
+            story.append(Spacer(1, 10))
+            
+            # ===== ITENS DA NFC-e =====
+            story.append(Paragraph("ITENS DA NFC-e", header_style))
+            
+            dados_tabela = [['Item', 'Código', 'Descrição', 'Qtd', 'Vl.Unit.', 'Vl.Total']]
+            
+            for i, item in enumerate(nota_fiscal['itens'], 1):
                 dados_tabela.append([
+                    str(i),
                     item['codigo'],
-                    item['descricao'],
+                    item['descricao'][:30] + "..." if len(item['descricao']) > 30 else item['descricao'],
                     f"{item['quantidade']:.2f}".replace('.', ','),
                     f"R$ {item['preco_unitario']:.2f}".replace('.', ','),
                     f"R$ {item['total']:.2f}".replace('.', ',')
                 ])
             
-            tabela = Table(dados_tabela, colWidths=[1*inch, 3*inch, 0.8*inch, 1.2*inch, 1*inch])
+            # Ajustar larguras das colunas para NFC-e
+            tabela = Table(dados_tabela, colWidths=[0.4*inch, 0.8*inch, 2.5*inch, 0.6*inch, 0.8*inch, 0.9*inch])
             tabela.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
                 ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
                 ('ALIGN', (0, 0), (-1, -1), 'CENTER'),
                 ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, 0), 10),
-                ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
+                ('FONTSIZE', (0, 0), (-1, 0), 8),
+                ('BOTTOMPADDING', (0, 0), (-1, 0), 8),
                 ('BACKGROUND', (0, 1), (-1, -1), colors.white),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
-                ('ALIGN', (2, 1), (-1, -1), 'RIGHT'),  # Alinhar números à direita
-                ('ALIGN', (1, 1), (1, -1), 'LEFT'),    # Alinhar descrição à esquerda
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
+                ('ALIGN', (3, 1), (-1, -1), 'RIGHT'),  # Alinhar números à direita
+                ('ALIGN', (2, 1), (2, -1), 'LEFT'),    # Alinhar descrição à esquerda
+                ('FONTSIZE', (0, 1), (-1, -1), 7),     # Fonte menor para itens
             ]))
             
             story.append(tabela)
-            story.append(Spacer(1, 15))
+            story.append(Spacer(1, 10))
             
-            # ===== TOTAIS =====
+            # ===== TOTAIS DA NFC-e =====
             story.append(Paragraph("TOTAIS", header_style))
             
-            # Calcular impostos (simplificado)
+            # Calcular impostos conforme NFC-e
             base_calculo = nota_fiscal['subtotal']
             valor_icms = base_calculo * 0.18  # 18% ICMS
-            valor_total = base_calculo + valor_icms
+            valor_pis = base_calculo * 0.0165  # 1.65% PIS
+            valor_cofins = base_calculo * 0.076  # 7.6% COFINS
+            valor_total = base_calculo + valor_icms + valor_pis + valor_cofins
             
             dados_impostos = [
-                ['Base ICMS', f"R$ {base_calculo:.2f}".replace('.', ',')],
-                ['Valor ICMS', f"R$ {valor_icms:.2f}".replace('.', ',')],
-                ['Valor Total', f"R$ {valor_total:.2f}".replace('.', ',')]
+                ['Subtotal', f"R$ {base_calculo:.2f}".replace('.', ',')],
+                ['ICMS', f"R$ {valor_icms:.2f}".replace('.', ',')],
+                ['PIS', f"R$ {valor_pis:.2f}".replace('.', ',')],
+                ['COFINS', f"R$ {valor_cofins:.2f}".replace('.', ',')],
+                ['TOTAL', f"R$ {valor_total:.2f}".replace('.', ',')]
             ]
             
-            tabela_impostos = Table(dados_impostos, colWidths=[3*inch, 2*inch])
+            tabela_impostos = Table(dados_impostos, colWidths=[2.5*inch, 1.5*inch])
             tabela_impostos.setStyle(TableStyle([
                 ('BACKGROUND', (0, 0), (-1, 0), colors.lightgrey),
-                ('TEXTCOLOR', (0, 0), (-1, 0), colors.black),
+                ('BACKGROUND', (0, -1), (-1, -1), colors.lightgrey),
+                ('TEXTCOLOR', (0, 0), (-1, -1), colors.black),
                 ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
                 ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-                ('FONTSIZE', (0, 0), (-1, -1), 10),
-                ('GRID', (0, 0), (-1, -1), 1, colors.black),
+                ('FONTNAME', (0, -1), (-1, -1), 'Helvetica-Bold'),
+                ('FONTSIZE', (0, 0), (-1, -1), 9),
+                ('GRID', (0, 0), (-1, -1), 0.5, colors.black),
                 ('ALIGN', (1, 0), (1, -1), 'RIGHT'),  # Valores à direita
             ]))
             
             story.append(tabela_impostos)
-            story.append(Spacer(1, 20))
+            story.append(Spacer(1, 15))
             
-            # ===== INFORMAÇÕES FISCAIS =====
-            story.append(Paragraph("INFORMAÇÕES FISCAIS", header_style))
+            # ===== QR CODE NFC-e =====
+            story.append(Paragraph("QR CODE PARA CONSULTA", header_style))
             
-            # Gerar chave de acesso e protocolo
-            chave_acesso = self.gerar_chave_acesso("35", "1508", self.limpar_documento(self.dados_empresa['cnpj']), "55", "001", nota_fiscal['numero'], "00000001", "1")
-            protocolo = "135210000025991"
+            # Gerar QR Code conforme especificações NFC-e
+            qr_data = f"{chave_acesso}|{protocolo}|{valor_total:.2f}|{nota_fiscal['data']}"
+            qr_path = self.gerar_qr_code_nfc_e(qr_data, chave_acesso)
             
-            story.append(Paragraph(f"<b>Chave de Acesso:</b> {chave_acesso}", normal_style))
-            story.append(Paragraph(f"<b>Protocolo de Autorização:</b> {protocolo} - {nota_fiscal['data']}", normal_style))
-            story.append(Paragraph(f"<b>SEFAZ Autorizadora:</b> SEFAZ/ES", normal_style))
+            if qr_path and os.path.exists(qr_path):
+                # Adicionar QR Code ao PDF
+                img = Image(qr_path)
+                img.drawHeight = 1.5*inch
+                img.drawWidth = 1.5*inch
+                story.append(img)
+                story.append(Spacer(1, 5))
             
-            story.append(Spacer(1, 20))
+            story.append(Paragraph("Consulte a autenticidade em:", small_style))
+            story.append(Paragraph("www.nfe.fazenda.gov.br/portal", small_style))
+            story.append(Paragraph(f"Chave de Acesso: {chave_acesso}", small_style))
+            story.append(Spacer(1, 10))
             
-            # ===== OBSERVAÇÕES =====
-            story.append(Paragraph("OBSERVAÇÕES", header_style))
-            story.append(Paragraph("• Esta é uma nota fiscal simplificada para controle interno", normal_style))
-            story.append(Paragraph("• Para consulta de autenticidade, entre em contato com a empresa", normal_style))
-            story.append(Paragraph("• Documento válido para fins fiscais e contábeis", normal_style))
-            story.append(Spacer(1, 20))
-            story.append(Paragraph("_________________________________", normal_style))
-            story.append(Paragraph("Assinatura do Responsável", normal_style))
+            # ===== INFORMAÇÕES ADICIONAIS =====
+            story.append(Paragraph("INFORMAÇÕES ADICIONAIS", header_style))
+            story.append(Paragraph("• NFC-e gerada conforme Nota Técnica 2020.004", small_style))
+            story.append(Paragraph("• Documento válido para fins fiscais", small_style))
+            story.append(Paragraph("• Consumidor final - não gera crédito fiscal", small_style))
+            story.append(Paragraph("• Sistema Padaria Quero Mais", small_style))
+            story.append(Spacer(1, 10))
+            
+            # ===== RODAPÉ NFC-e =====
+            story.append(Paragraph("_" * 50, small_style))
+            story.append(Paragraph("DANFE NFC-e - Documento Auxiliar da Nota Fiscal de Consumidor Eletrônica", small_style))
+            story.append(Paragraph("Este documento não é uma nota fiscal, nem substitui uma nota fiscal", small_style))
+            story.append(Paragraph("Consulte a autenticidade no site da SEFAZ", small_style))
             
             # Gerar PDF
             doc.build(story)
             
             # Verificar se o arquivo foi criado
             if not os.path.exists(caminho_completo):
-                raise Exception(f"PDF não foi criado: {caminho_completo}")
+                raise Exception(f"DANFE NFC-e não foi criado: {caminho_completo}")
             
-            print(f"PDF gerado com sucesso: {caminho_completo}")
+            print(f"DANFE NFC-e gerado com sucesso: {caminho_completo}")
             return caminho_completo
             
         except Exception as e:
-            print(f"Erro ao gerar PDF: {e}")
+            print(f"Erro ao gerar DANFE NFC-e: {e}")
             raise e
     
     def imprimir_pdf(self, arquivo_pdf):

@@ -1,6 +1,6 @@
-# 🥖 Sistema de Nota Fiscal - Padaria Quero Mais
+# 🥖 Sistema de NFC-e - Padaria Quero Mais
 
-Sistema completo de gestão de notas fiscais desenvolvido para padarias e estabelecimentos similares, com interface gráfica moderna e funcionalidades avançadas.
+Sistema completo de gestão de NFC-e (Nota Fiscal de Consumidor Eletrônica) desenvolvido para padarias e estabelecimentos similares, com interface gráfica moderna e funcionalidades avançadas.
 
 ## ✨ Funcionalidades Principais
 
@@ -19,25 +19,25 @@ Sistema completo de gestão de notas fiscais desenvolvido para padarias e estabe
 - Edição e remoção de produtos
 - Lista organizada com busca e filtros
 
-### 🧾 Geração de Notas Fiscais
-- Interface intuitiva para criação de NF
+### 🧾 Geração de NFC-e
+- Interface intuitiva para criação de NFC-e
 - Validação automática de CPF/CNPJ do cliente
 - Cálculo automático de impostos (ICMS, PIS, COFINS)
-- Geração de PDF profissional
-- Geração de XML NF-e conforme padrão SEFAZ
+- Geração de DANFE NFC-e conforme NT 2020.004
+- Geração de XML NFC-e conforme padrão SEFAZ (modelo 65)
 
 ### 📋 Histórico e Gestão
-- Histórico completo de notas fiscais
+- Histórico completo de NFC-e
 - Filtros por cliente
-- Status de notas (Pendente/Concluída)
-- Reimpressão de notas
-- Visualização de PDFs
+- Status de NFC-e (Pendente/Concluída)
+- Reimpressão de NFC-e
+- Visualização de DANFE
 
 ### 🖨️ Impressão e Exportação
-- Impressão automática de notas fiscais
-- Geração de PDFs em pasta organizada
-- Geração de XMLs NF-e para integração com SEFAZ
-- Códigos de barras para pagamento
+- Impressão automática de NFC-e
+- Geração de DANFE em pasta organizada
+- Geração de XMLs NFC-e para integração com SEFAZ
+- QR Code para consulta de autenticidade
 
 ## 🛠️ Tecnologias Utilizadas
 
@@ -48,7 +48,7 @@ Sistema completo de gestão de notas fiscais desenvolvido para padarias e estabe
 - **QRCode** - Geração de códigos QR
 - **Cryptography** - Criptografia e certificados digitais
 - **PyWin32** - Integração com Windows
-- **XML** - Geração de documentos NF-e
+- **XML** - Geração de documentos NFC-e
 
 ## 📋 Pré-requisitos
 
@@ -105,34 +105,34 @@ Sistema de nota fiscal/
 
 ## 📖 Como Usar
 
-### Criando uma Nota Fiscal
+### Criando uma NFC-e
 
-1. Acesse a aba "Nova Nota Fiscal"
+1. Acesse a aba "Nova NFC-e"
 2. Preencha os dados do cliente
 3. Adicione os produtos desejados
-4. Clique em "Gerar e Imprimir NF"
+4. Clique em "Gerar e Imprimir NFC-e"
 
 ### Gerenciando o Histórico
 
 1. Acesse a aba "Histórico"
-2. Use os filtros para encontrar notas específicas
-3. Visualize, reimprima ou altere o status das notas
+2. Use os filtros para encontrar NFC-e específicas
+3. Visualize, reimprima ou altere o status das NFC-e
 
 ## 🔒 Segurança e Conformidade
 
 - Validação automática de CPF/CNPJ
-- Geração de XML NF-e conforme padrão SEFAZ
+- Geração de XML NFC-e conforme padrão SEFAZ
 - Suporte a certificados digitais
 - Criptografia de dados sensíveis
 - Backup automático de dados
 
 ## 📊 Recursos Avançados
 
-### Geração de XML NF-e
-- Conformidade com padrão SEFAZ
+### Geração de XML NFC-e
+- Conformidade com padrão SEFAZ (modelo 65)
 - Chave de acesso automática
 - Protocolo de autorização
-- QR Code para consulta
+- QR Code para consulta conforme NT 2020.004
 
 ### Sistema de Impressão
 - Impressão automática
