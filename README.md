@@ -107,7 +107,7 @@ Sistema de nota fiscal/
 
 ### Criando uma NFC-e
 
-1. Acesse a aba "Nova NFC-e"
+1. Acesse a aba "NFC-e"
 2. Preencha os dados do cliente
 3. Adicione os produtos desejados
 4. Clique em "Gerar e Imprimir NFC-e"

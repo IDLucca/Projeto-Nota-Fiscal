@@ -1,7 +1,7 @@
 import tkinter as tk
 from tkinter import ttk, messagebox, filedialog
 from reportlab.lib.pagesizes import A4
-from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer
+from reportlab.platypus import SimpleDocTemplate, Table, TableStyle, Paragraph, Spacer, Image
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib.units import inch
 from reportlab.lib import colors
@@ -32,7 +32,7 @@ import win32crypt
 import win32security
 import win32api
 import win32con
-from PIL import Image, ImageTk
+from PIL import Image as PILImage, ImageTk
 
 class SistemaNotaFiscal:
     def __init__(self, root):
@@ -536,10 +536,10 @@ class SistemaNotaFiscal:
     
     def criar_aba_nota_fiscal(self, notebook):
         frame_nf = ttk.Frame(notebook)
-        notebook.add(frame_nf, text="Nova NFC-e")
+        notebook.add(frame_nf, text="NFC-e")
         
         # Título
-        ttk.Label(frame_nf, text="Nova NFC-e", font=("Arial", 16, "bold")).pack(pady=10)
+        ttk.Label(frame_nf, text="NFC-e", font=("Arial", 16, "bold")).pack(pady=10)
         
         # Frame para dados do cliente
         frame_cliente = ttk.LabelFrame(frame_nf, text="Dados do Cliente")
@@ -1326,9 +1326,12 @@ class SistemaNotaFiscal:
             temp_path = os.path.join(tempfile.gettempdir(), f"qr_nfce_{chave_acesso}.png")
             qr_image.save(temp_path)
             
+            print(f"QR Code NFC-e gerado com sucesso: {temp_path}")
             return temp_path
         except Exception as e:
             print(f"Erro ao gerar QR Code NFC-e: {e}")
+            import traceback
+            traceback.print_exc()
             return None
     
     def gerar_xml_nfe(self, nota_fiscal):
@@ -1738,16 +1741,26 @@ class SistemaNotaFiscal:
             story.append(Paragraph("QR CODE PARA CONSULTA", header_style))
             
             # Gerar QR Code conforme especificações NFC-e
-            qr_data = f"{chave_acesso}|{protocolo}|{valor_total:.2f}|{nota_fiscal['data']}"
-            qr_path = self.gerar_qr_code_nfc_e(qr_data, chave_acesso)
+            try:
+                qr_data = f"{chave_acesso}|{protocolo}|{valor_total:.2f}|{nota_fiscal['data']}"
+                qr_path = self.gerar_qr_code_nfc_e(qr_data, chave_acesso)
+            except Exception as e:
+                print(f"Erro ao gerar dados do QR Code: {e}")
+                qr_path = None
             
             if qr_path and os.path.exists(qr_path):
-                # Adicionar QR Code ao PDF
-                img = Image(qr_path)
-                img.drawHeight = 1.5*inch
-                img.drawWidth = 1.5*inch
-                story.append(img)
-                story.append(Spacer(1, 5))
+                try:
+                    # Adicionar QR Code ao PDF usando ReportLab Image
+                    img = Image(qr_path)
+                    img.drawHeight = 1.5*inch
+                    img.drawWidth = 1.5*inch
+                    story.append(img)
+                    story.append(Spacer(1, 5))
+                except Exception as e:
+                    print(f"Erro ao adicionar QR Code ao PDF: {e}")
+                    # Continuar sem QR Code se houver erro
+                    story.append(Paragraph("QR Code não disponível", small_style))
+                    story.append(Spacer(1, 5))
             
             story.append(Paragraph("Consulte a autenticidade em:", small_style))
             story.append(Paragraph("www.nfe.fazenda.gov.br/portal", small_style))
